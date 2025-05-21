@@ -1,33 +1,56 @@
 <template>
-  <h3>{{ info }}</h3>
-  <p>{{ someInfo }}</p>
+  <input type="text" v-model="userName" placeholder="Name">
+  <input type="password" v-model="userPass" placeholder="Password">
+  <input type="email" v-model="userEmail" placeholder="Email">
+  <button @click="sendData()">Send</button>
 
-  <button type="button" @click="userData('Some new')">Send</button>
+  <div v-if="users.length == 0">
+    We dont have users
+  </div>
+
+  <p className="error">{{ error }}</p>
+  <div v-for="(el, index) in users" :key="index">
+    <h3>{{ el.name }}</h3>
+    <p>{{ el.email }} - <b>{{ el.pass }}</b></p>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      info: 'Title',
-      someInfo: 'Anons of message',
+      users: [],
+      error: '',
+      userName: '',
+      userPass: '',
+      userEmail: ''
     }
   },
   methods: {
-    userData(word = 'New text') {
-      // this.info = 'Some new'
-      this.someInfo = word
+    sendData(){
+      if(this.userName == '') {
+        this.error = 'Name didnt enter';
+        return;
+      } else if (this.userEmail == '') {
+        this.error = 'Email didnt enter';
+        return;
+      } else if (this.userPass == '') {
+        this.error = 'Password didnt enter';
+        return;
+      }
+
+      this.error = '';
+      
+      this.users.push({
+        name: this.userName,
+        pass: this.userPass,
+        email: this.userEmail
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-  h3 {
-    font-weight: lighter;
-  }
-
-  p {
-    color: rgb(203, 31, 31);
-  }
+  
 </style>
