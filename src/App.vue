@@ -3,7 +3,7 @@
   <input type="password" v-model="userPass" placeholder="Password">
   <input type="email" v-model="userEmail" placeholder="Email">
   <button @click="sendData()">Send</button>
-
+  <div v-for="el in ['f', 'd']">{{ el }}</div>
   <div v-if="users.length == 0">
     We dont have users
   </div>
