@@ -3,20 +3,28 @@
   <input type="password" v-model="userPass" placeholder="Password">
   <input type="email" v-model="userEmail" placeholder="Email">
   <button @click="sendData()">Send</button>
-  <div v-for="el in ['f', 'd']">{{ el }}</div>
+  
   <div v-if="users.length == 0">
     We dont have users
   </div>
 
-  <p className="error">{{ error }}</p>
-  <div v-for="(el, index) in users" :key="index">
-    <h3>{{ el.name }}</h3>
-    <p>{{ el.email }} - <b>{{ el.pass }}</b></p>
+  <div v-else-if="users.length == 1">
+    Users has 1 element
   </div>
+  <div v-else>
+    Has more users
+  </div>
+
+  <p className="error">{{ error }}</p>
+ <User v-for="(el, index) in users" :key="index" :user="el" :index="index" :deleteUser="deleteUser" />
 </template>
 
 <script>
+import User from './components/User.vue';
+
 export default {
+  components: { User },
+
   data() {
     return {
       users: [],
@@ -46,6 +54,10 @@ export default {
         pass: this.userPass,
         email: this.userEmail
       })
+    },
+    deleteUser(index) {
+      this.users.splice(index, 1);
+      alert('hi')
     }
   }
 }
