@@ -1,68 +1,62 @@
 <template>
-  <input type="text" v-model="userName" placeholder="Name">
-  <input type="password" v-model="userPass" placeholder="Password">
-  <input type="email" v-model="userEmail" placeholder="Email">
-  <button @click="sendData()">Send</button>
-  
-  <div v-if="users.length == 0">
-    We dont have users
-  </div>
-
-  <div v-else-if="users.length == 1">
-    Users has 1 element
-  </div>
-  <div v-else>
-    Has more users
-  </div>
-
-  <p className="error">{{ error }}</p>
- <User v-for="(el, index) in users" :key="index" :user="el" :index="index" :deleteUser="deleteUser" />
+ <div class="wrapper">
+  <h1>Weather app</h1>
+  <p>Find out the weather in your city</p>
+  <input type="text" placeholder="Enter the city">
+  <button>Get weather</button>
+ </div>
 </template>
 
 <script>
-import User from './components/User.vue';
 
-export default {
-  components: { User },
-
-  data() {
-    return {
-      users: [],
-      error: '',
-      userName: '',
-      userPass: '',
-      userEmail: ''
-    }
-  },
-  methods: {
-    sendData(){
-      if(this.userName == '') {
-        this.error = 'Name didnt enter';
-        return;
-      } else if (this.userEmail == '') {
-        this.error = 'Email didnt enter';
-        return;
-      } else if (this.userPass == '') {
-        this.error = 'Password didnt enter';
-        return;
-      }
-
-      this.error = '';
-      
-      this.users.push({
-        name: this.userName,
-        pass: this.userPass,
-        email: this.userEmail
-      })
-    },
-    deleteUser(index) {
-      this.users.splice(index, 1);
-      alert('hi')
-    }
-  }
-}
 </script>
 
 <style scoped>
-  
+.wrapper {
+  width: 900px;
+  height: 500px;
+  border-radius: 50px;
+  padding: 20px;
+  background: #1f0f24;
+  text-align: center;
+  color: #fff;
+}
+
+.wrapper h1 {
+  margin-top: 50px;
+}
+
+.wrapper p {
+  margin-top: 20px;
+}
+
+.wrapper input {
+  margin-top: 30px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #110813;
+  color: #fcfcfc;
+  font-size: 14px;
+  padding: 5px 8px;
+  outline: none;
+}
+
+.wrapper input:focus {
+  border-bottom-color: #6e2d7d;
+}
+
+.wrapper button {
+  background: #e3bc4b;
+  color: #fff;
+  border-radius: 10px;
+  border: 2px solid #b99935;
+  padding: 10px 15px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: transform 500ms ease;
+}
+
+.wrapper button:hover {
+  transform: scale(1.1) translateY(-5px);
+}
 </style>
