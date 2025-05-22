@@ -1,4 +1,21 @@
 <template>
+
+    <h1>CRYPTO</h1>
+    <Input />
+    <div className="selectors">
+        <Selector />
+        <Selector />
+    </div>
+    
+</template>
+
+<script>
+import Input from './components/Input.vue'
+import Selector from './components/Selector.vue';
+
+export default {
+    components: { Input, Selector }
+=======
  <div class="wrapper">
   <h1>Weather app</h1>
   <p>Find out the weather in {{ city == "" ? "your city" : cityName }}</p>
@@ -56,10 +73,22 @@ export default {
       .then(res => (this.info = res.data))
     }
   }
+
 }
+
+
 </script>
 
+
 <style scoped>
+
+.selectors {
+    display: flex;
+    justify-content: space-around;
+    width: 700px;
+    margin: 0 auto;
+}
+
 .error {
   color: #d03939;
 }
@@ -117,3 +146,4 @@ export default {
   transform: scale(1.1) translateY(-5px);
 }
 </style>
+
