@@ -1,56 +1,31 @@
 <template>
-  <input type="text" v-model="userName" placeholder="Name">
-  <input type="password" v-model="userPass" placeholder="Password">
-  <input type="email" v-model="userEmail" placeholder="Email">
-  <button @click="sendData()">Send</button>
-
-  <div v-if="users.length == 0">
-    We dont have users
-  </div>
-
-  <p className="error">{{ error }}</p>
-  <div v-for="(el, index) in users" :key="index">
-    <h3>{{ el.name }}</h3>
-    <p>{{ el.email }} - <b>{{ el.pass }}</b></p>
-  </div>
+    <h1>CRYPTO</h1>
+    <Input />
+    <div className="selectors">
+        <Selector />
+        <Selector />
+    </div>
+    
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      users: [],
-      error: '',
-      userName: '',
-      userPass: '',
-      userEmail: ''
-    }
-  },
-  methods: {
-    sendData(){
-      if(this.userName == '') {
-        this.error = 'Name didnt enter';
-        return;
-      } else if (this.userEmail == '') {
-        this.error = 'Email didnt enter';
-        return;
-      } else if (this.userPass == '') {
-        this.error = 'Password didnt enter';
-        return;
-      }
+import Input from './components/Input.vue'
+import Selector from './components/Selector.vue';
 
-      this.error = '';
-      
-      this.users.push({
-        name: this.userName,
-        pass: this.userPass,
-        email: this.userEmail
-      })
-    }
-  }
+export default {
+    components: { Input, Selector }
 }
+
+
 </script>
 
+
 <style scoped>
-  
+.selectors {
+    display: flex;
+    justify-content: space-around;
+    width: 700px;
+    margin: 0 auto;
+}
+
 </style>
