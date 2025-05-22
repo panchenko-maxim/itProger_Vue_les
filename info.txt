@@ -1,0 +1,16 @@
+…or create a new repository on the command line
+echo "# itProger_Vue_les" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/panchenko-maxim/itProger_Vue_les.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/panchenko-maxim/itProger_Vue_les.git
+git branch -M main
+git push -u origin main
+
+
+
+https://www.youtube.com/watch?v=W0k3zzoZjCg&list=PLDyJYA6aTY1lwiVmcFFb7g0dRehAXmWUn&index=4
