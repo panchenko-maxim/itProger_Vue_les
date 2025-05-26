@@ -10,72 +10,12 @@
 </template>
 
 <script>
-import Input from './components/Input.vue'
+import Input from './components/Input.vue';
 import Selector from './components/Selector.vue';
 
 export default {
-    components: { Input, Selector }
-=======
- <div class="wrapper">
-  <h1>Weather app</h1>
-  <p>Find out the weather in {{ city == "" ? "your city" : cityName }}</p>
-  <input type="text" v-model="this.city" placeholder="Enter the city">
-  <button v-if="city != ''" @click="getWeather()">Get weather</button>
-  <button disabled v-else>Enter the name city</button>
-  <p class="error">{{ error }}</p>
-
-  <div v-if="info != null">
-    <p>{{ showTemp }}</p>
-    <p>{{ showFeelsLike }}</p>
-    <p>{{ showMinTemp }}</p>
-    <p>{{ showMaxTemp }}</p>
-  </div>
-  
- </div>
-</template>
-
-<script>
-import axios from "axios";
-export default {
-  data() {
-    return {
-      city: "",
-      error: "",
-      info: null
-    }
-  },
-  computed: {
-    cityName() {
-      return "<<" + this.city + ">>"
-    },
-    showTemp(){
-      return "Temperature: " + this.info["main"].temp
-    },
-    showFeelsLike(){
-      return "Feels like: " + this.info["main"].feels_like
-    },
-    showMinTemp(){
-      return "Min temperature: " + this.info["main"].temp_min
-    },
-    showMaxTemp(){
-      return "Max temperature " + this.info["main"].temp_max
-    }
-  },
-  methods: {
-    getWeather(){
-      if(this.city.trim().length < 2){
-        this.error = "Need a name longer than 1 character"
-        return false;
-      }
-      this.error = ""
-
-      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=c10af5c49d55a65db684841f136ec9bb`)
-      .then(res => (this.info = res.data))
-    }
-  }
-
+  components: { Input, Selector }
 }
-
 
 </script>
 
