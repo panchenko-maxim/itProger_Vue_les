@@ -1,7 +1,9 @@
 <template>
 
     <h1>CRYPTO</h1>
-    <Input :changeAmount="changeAmount" />
+    <Input :changeAmount="changeAmount" :convert="convert" />
+    <p v-if="error != ''">{{ error }}</p>
+    <p className="result-text" v-if="result != ''">{{ result }}</p>
     
     <div className="selectors">
         <Selector :setCrypto="setCryptoFirst" />
@@ -11,8 +13,12 @@
 </template>
 
 <script>
+import { triggerRef } from 'vue';
 import Input from './components/Input.vue';
 import Selector from './components/Selector.vue';
+import CryptoConvert from 'crypto-convert';
+
+const convert = new CryptoConvert();
 
 export default {
   components: { Input, Selector },
@@ -20,7 +26,9 @@ export default {
     return {
       amount: 0,
       cryptoFirst: '',
-      cryptoSecond: ''
+      cryptoSecond: '',
+      error: '',
+      result: 0
     }
   },
   methods: {
@@ -32,6 +40,35 @@ export default {
     },
     setCryptoSecond(val) {
       this.cryptoSecond = val
+    },
+    async convert() {
+      if (this.amount <= 0) {
+        this.error = 'Enter the number more than null';
+        return
+      } else if (this.cryptoFirst == this.cryptoSecond) {
+        this.error = 'Select another currency';
+        return
+      } else if (this.cryptoFirst == '' || this.cryptoSecond == '') {
+        this.error = 'Select currency';
+        return
+      }
+      this.error = '';
+
+      await convert.ready();
+
+      if (this.cryptoFirst == 'BTC' && this.cryptoSecond == 'ETH')
+        this.result = convert.BTC.ETH(this.amount);
+      else if (this.cryptoFirst == 'BTC' && this.cryptoSecond == 'USDT')
+        this.result == convert.BTC.USDT(this.amount)
+      else if (this.cryptoFirst == 'ETH' && this.cryptoSecond == 'BTC')
+        this.result == convert.ETH.BTC(this.amount)
+      else if (this.cryptoFirst == 'ETH' && this.cryptoSecond == 'USDT')
+        this.result == convert.ETH.USDT(this.amount)
+      else if (this.cryptoFirst == 'USDT' && this.cryptoSecond == 'BTC')
+        this.result == convert.USDT.BTC(this.amount)
+      else if (this.cryptoFirst == 'USDT' && this.cryptoSecond == 'ETH')
+        this.result == convert.USDT.ETH(this.amount)
+      
     }
   }
 }
@@ -103,6 +140,11 @@ export default {
 
 .wrapper button:hover {
   transform: scale(1.1) translateY(-5px);
+}
+
+.result-text {
+  font-family: 'Nabla', cursive;
+  font-size: 2em;
 }
 </style>
 
